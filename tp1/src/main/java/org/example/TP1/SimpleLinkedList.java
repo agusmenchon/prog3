@@ -152,7 +152,7 @@ Las listas están ordenadas y la lista resultante debe mantenerse ordenada.
 
         int pos = 1;
         while(pos<=this.size && current!=null){
-            if(compare(current.getInfo(), info) > 0 ){
+            if(current.getInfo().compareTo(info) > 0 ){
                 aux.setNext(current);
                 if(this.first == current){
                     this.first = aux;
@@ -173,9 +173,6 @@ Las listas están ordenadas y la lista resultante debe mantenerse ordenada.
         }
     }
 
-    public int compare(T obj, T obj2){
-        return obj.compareTo(obj2);
-    }
 
 //    Ejercicio 6
 //    Escriba una función que dadas dos listas construya otra con los elementos que están en la

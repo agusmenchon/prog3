@@ -70,6 +70,6 @@ public class Main {
 
         // Ejercicio 6
         SimpleLinkedList l4 = list.concatListEj6(list2);
-        System.out.println("Ejercicio 5 " + l4.toString());
+        System.out.println("Ejercicio 6 " + l4.toString());
     }
 }
