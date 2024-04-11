@@ -1,18 +1,53 @@
 package org.example;
 
+import org.example.Tree.Tree;
+import org.example.Tree.TreeNode;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        Tree arbol = new Tree();
+        arbol.insert(20);
+        arbol.insert(10);
+        arbol.insert(25);
+        arbol.insert(5);
+        arbol.insert(15);
+        arbol.insert(4);
+        arbol.insert(8);
+        arbol.insert(13);
+        arbol.insert(17);
+        arbol.insert(22);
+        arbol.insert(35);
+        arbol.insert(16);
+        arbol.insert(19);
+
+        System.out.println("Pre order: ");
+        arbol.printPreOrder();
+        System.out.println("\nIn order: ");
+        arbol.printInOrder();
+        System.out.println("\nPost order: ");
+        arbol.printPosOrder();
+
+        System.out.println("\nget max Elem: " + arbol.getMaxElem());
+
+        System.out.println("Nodos hojas: ");
+        ArrayList<TreeNode> frontera = arbol.getFrontera();
+        for(TreeNode l: frontera) {
+            System.out.print(l.getValue() + " | ");
         }
+
+        System.out.println("\nDelete nodo: 15");
+        arbol.delete(15);
+        System.out.println("Pre order: ");
+        arbol.printPreOrder();
+        System.out.println("\nIn order: ");
+        arbol.printInOrder();
+        System.out.println("\nPost order: ");
+        arbol.printPosOrder();
+
+        System.out.println("\nAltura del arbol: " + arbol.getHeight());
+
     }
 }
