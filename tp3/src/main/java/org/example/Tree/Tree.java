@@ -173,7 +173,6 @@ public class Tree {
         } else{
             int leftHeight = getHeight(root.getLeft());
             int rightHeight = getHeight(root.getRight());
-
             if(leftHeight >= rightHeight){
                 return leftHeight+1;
             }
@@ -200,6 +199,7 @@ public class Tree {
 
     private void printPreOrder(TreeNode nodo) {
         if(nodo == null){
+            System.out.print("- "); /* opcional para marcar hijos nulos */
             return;
         }
         System.out.print(nodo.getValue() + " ");
@@ -252,9 +252,61 @@ public class Tree {
         return a.getValue();
     }
 
-    public List getElemAtLevel(int i){
-        return null;
-        //TODO
+    public ArrayList getElemAtLevel(int i){
+        ArrayList<TreeNode> l = new ArrayList<>();
+        this.getElemAtLevel(this.root, l, i, 0);
+        return l;
     }
 
+    private void getElemAtLevel(TreeNode root, ArrayList<TreeNode> l,int lvl, int x) {
+        if(x>lvl || root == null){
+            return;
+        }
+        if(lvl == x){
+            l.add(root);
+        }
+        getElemAtLevel(root.getLeft(), l, lvl, x+1);
+        getElemAtLevel(root.getRight(), l, lvl, x+1);
+    }
+
+    //Ejercicio 2:
+    // implementar un algoritmo que retorne la suma de todos los nodos internos del árbol.
+    public int sumOfAllInternalNodes(){
+        return sumOfAllInternalNodes(this.root);
+    }
+
+    private int sumOfAllInternalNodes(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        int izq = sumOfAllInternalNodes(root.getLeft());
+        int der = sumOfAllInternalNodes(root.getRight());
+
+        if(oneChildren(root) || TwoChildrens(root)){
+            return root.getValue() + izq + der;
+        }
+        return 0;
+    }
+
+    /* implementar un algoritmo que permita obtener un listado con
+    los valores de todas las hojas cuyo valor supere K. */
+    public List ej3(int x){
+        ArrayList<TreeNode> l = new ArrayList<>();
+        this.ej3(this.root, l, x);
+        return l;
+    }
+
+    private void ej3(TreeNode root, ArrayList<TreeNode> l, int x) {
+        if(root==null){
+            return;
+        }
+//        if(x>root.getValue()){
+//            ej3(root.getRight(), l, x);
+//        }
+        if(root.getValue()>x && isSheet(root)){
+            l.add(root);
+        }
+        ej3(root.getLeft(), l, x);
+        ej3(root.getRight(), l, x);
+    }
 }
