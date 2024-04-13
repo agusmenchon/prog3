@@ -210,7 +210,7 @@ public class Tree {
         this.printInOrder(this.root);
     }
 
-    private void printInOrder(TreeNode nodo) {
+    protected void printInOrder(TreeNode nodo) {
         if(nodo == null){
             return;
         }

@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.Tree.BinaryTree;
 import org.example.Tree.Tree;
 import org.example.Tree.TreeNode;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        //Ejercicio 1:
+        //Ejercicio 1
         Tree arbol = new Tree();
         arbol.insert(20);
         arbol.insert(10);
@@ -50,7 +51,6 @@ public class Main {
 
         System.out.println("\nAltura del arbol: " + arbol.getHeight());
 
-
         //Ejercicio 2
         ArrayList<TreeNode> listNodos = arbol.getElemAtLevel(2);
         System.out.println("Nodos en la altura 2: ");
@@ -67,5 +67,27 @@ public class Main {
         for(TreeNode l: listMayoresA) {
             System.out.print(l.getValue() + " | ");
         }
+
+        //Ejercicio 4
+        System.out.println("Ejercicio 4: ");
+        BinaryTree tree = new BinaryTree();
+        TreeNode raiz = tree.insert(37);
+        TreeNode x = tree.insertarIzquierda(raiz, -26);
+        TreeNode z = tree.insertarDerecha(raiz, 11);
+        TreeNode a = tree.insertarIzquierda(x, 14);
+        TreeNode b = tree.insertarDerecha(x, -12);
+        TreeNode s = tree.insertarIzquierda(b, 7);
+        TreeNode d = tree.insertarDerecha(b, -5);
+        TreeNode f = tree.insertarIzquierda(z, 9);
+        TreeNode g = tree.insertarDerecha(z, 20);
+        TreeNode h = tree.insertarDerecha(f, 9);
+
+        tree.printInOrder();
+        tree.borrarNodosInternos(raiz);
+        tree.printInOrder();
+
+        // Metodo para volver a calcular recursivamente el valor de los nodos.
+        tree.colocarValoresANodosVacios();
+        tree.printInOrder();
     }
 }
