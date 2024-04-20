@@ -1,5 +1,8 @@
 package org.example.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryTree {
     TreeNode root;
 
@@ -106,6 +109,69 @@ public class BinaryTree {
         if(!isSheet(root)){
             root.setValue(der-izq);
         }
-        return root.getValue();
+        return (int) root.getValue();
     }
+
+    public void printPreety() {
+        List<TreeNode> list = new ArrayList<TreeNode>();
+        list.add(this.root);
+        printTree(list, getHeight(this.root));
+    }
+
+    public int getHeight(TreeNode head) {
+
+        if (head == null) {
+            return 0;
+        } else {
+            return 1 + Math.max(getHeight(head.getLeft()), getHeight(head.getRight()));
+        }
+    }
+
+    /**
+     * pass head node in list and height of the tree
+     *
+     * @param levelNodes
+     * @param level
+     */
+    private void printTree(List<TreeNode> levelNodes, int level) {
+
+        List<TreeNode> nodes = new ArrayList<TreeNode>();
+
+        //indentation for first node in given level
+        printIndentForLevel(level);
+
+        for (TreeNode treeNode : levelNodes) {
+
+            //print node data
+            System.out.print(treeNode == null?" ":treeNode.getValue());
+
+            //spacing between nodes
+            printSpacingBetweenNodes(level);
+
+            //if its not a leaf node
+            if(level>1){
+                nodes.add(treeNode == null? null:treeNode.getLeft());
+                nodes.add(treeNode == null? null:treeNode.getRight());
+            }
+        }
+        System.out.println();
+
+        if(level>1){
+            printTree(nodes, level-1);
+        }
+    }
+
+    private void printIndentForLevel(int level){
+        for (int i = (int) (Math.pow(2,level-1)); i >0; i--) {
+            System.out.print(" ");
+        }
+    }
+
+    private void printSpacingBetweenNodes(int level){
+        //spacing between nodes
+        for (int i = (int) ((Math.pow(2,level-1))*2)-1; i >0; i--) {
+            System.out.print(" ");
+        }
+    }
+
 }
