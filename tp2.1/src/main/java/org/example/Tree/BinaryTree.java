@@ -3,33 +3,33 @@ package org.example.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinaryTree {
-    TreeNode root;
+public class BinaryTree<T extends Comparable<T>> {
+    TreeNode<T> root;
 
     public BinaryTree() {
         this.root = null;
     }
 
-    public TreeNode insert(Integer val) {
+    public TreeNode<T> insert(T val) {
         root = insertNode(root, val);
         return root;
     }
 
 
     // Metodos auxiliares para recrear arbol de ej4.
-    public TreeNode insertarDerecha(TreeNode r, int x) {
-        TreeNode n = new TreeNode(x);
+    public TreeNode<T> insertarDerecha(TreeNode<T> r, T x) {
+        TreeNode<T> n = new TreeNode<T>(x);
         r.setRight(n);
         return n;
     }
 
-    public TreeNode insertarIzquierda(TreeNode r, int x) {
-        TreeNode n = new TreeNode(x);
+    public TreeNode<T> insertarIzquierda(TreeNode<T> r, T x) {
+        TreeNode<T> n = new TreeNode<T>(x);
         r.setLeft(n);
         return n;
     }
 
-    public void borrarNodosInternos(TreeNode root) {
+    public void borrarNodosInternos(TreeNode<T> root) {
         if (root == null) {
             return;
         }
@@ -44,10 +44,10 @@ public class BinaryTree {
     }
 
     // Método auxiliar para insertar un nodo en el árbol binario de forma aleatoria de manera recursiva
-    private TreeNode insertNode(TreeNode root, Integer val) {
+    private TreeNode<T> insertNode(TreeNode<T> root, T val) {
         // Si el árbol está vacío, crea un nuevo nodo y devuélvelo
         if (root == null) {
-            root = new TreeNode(val);
+            root = new TreeNode<T>(val);
             return root;
         }
 
@@ -65,7 +65,7 @@ public class BinaryTree {
         this.printInOrder(this.root);
     }
 
-    private void printInOrder(TreeNode nodo) {
+    private void printInOrder(TreeNode<T> nodo) {
         if (nodo == null) {
             return;
         }
@@ -74,51 +74,43 @@ public class BinaryTree {
         printInOrder(nodo.getRight());
     }
 
-    private boolean TwoChildrens(TreeNode node) {
-        if (node.getLeft() != null && node.getRight() != null) {
-            return true;
-        }
-        return false;
+    private boolean TwoChildrens(TreeNode<T> node) {
+        return node.getLeft() != null && node.getRight() != null;
     }
 
-    private boolean oneChildren(TreeNode node) {
-        if ((node.getLeft() == null && node.getRight() != null) || (node.getLeft() != null && node.getRight() == null)) { //modificar condicional
-            return true;
-        }
-        return false;
+    private boolean oneChildren(TreeNode<T> node) {
+        //modificar condicional
+        return (node.getLeft() == null && node.getRight() != null) || (node.getLeft() != null && node.getRight() == null);
     }
 
-    private boolean isSheet(TreeNode node) {
-        if (node.getLeft() == null && node.getRight() == null) {
-            return true;
-        }
-        return false;
+    private boolean isSheet(TreeNode<T> node) {
+        return node.getLeft() == null && node.getRight() == null;
     }
 
     public void colocarValoresANodosVacios() {
         colocarValoresANodosVacios(this.root);
     }
 
-    private int colocarValoresANodosVacios(TreeNode root) {
+    private int colocarValoresANodosVacios(TreeNode<T> root) {
         if(root == null){
             return 0;
         }
-        int izq = colocarValoresANodosVacios(root.getLeft());
-        int der = colocarValoresANodosVacios(root.getRight());
-
+        Integer izq = colocarValoresANodosVacios(root.getLeft());
+        Integer der = colocarValoresANodosVacios(root.getRight());
+        Integer sum = izq-der;
         if(!isSheet(root)){
-            root.setValue(der-izq);
+            root.setValue((T) sum);
         }
-        return (int) root.getValue();
+        return (Integer) root.getValue();
     }
 
     public void printPreety() {
-        List<TreeNode> list = new ArrayList<TreeNode>();
+        List<TreeNode<T>> list = new ArrayList<>();
         list.add(this.root);
         printTree(list, getHeight(this.root));
     }
 
-    public int getHeight(TreeNode head) {
+    public int getHeight(TreeNode<T> head) {
 
         if (head == null) {
             return 0;
@@ -133,14 +125,14 @@ public class BinaryTree {
      * @param levelNodes
      * @param level
      */
-    private void printTree(List<TreeNode> levelNodes, int level) {
+    private void printTree(List<TreeNode<T>> levelNodes, int level) {
 
-        List<TreeNode> nodes = new ArrayList<TreeNode>();
+        List<TreeNode<T>> nodes = new ArrayList<>();
 
         //indentation for first node in given level
         printIndentForLevel(level);
 
-        for (TreeNode treeNode : levelNodes) {
+        for (TreeNode<T> treeNode : levelNodes) {
 
             //print node data
             System.out.print(treeNode == null?" ":treeNode.getValue());
@@ -172,6 +164,51 @@ public class BinaryTree {
         for (int i = (int) ((Math.pow(2,level-1))*2)-1; i >0; i--) {
             System.out.print(" ");
         }
+    }
+
+    public ArrayList<StringBuilder> ej5(int cantVocales){
+        ArrayList<StringBuilder> resultado = new ArrayList<>();
+        ArrayList<T> actual = new ArrayList<>();
+        ej5(this.root, resultado, actual,  cantVocales,0, false);
+
+        return resultado;
+    }
+
+    private void ej5(TreeNode<T> actual, ArrayList<StringBuilder> resultado, ArrayList<T> palabraActual, int cantVocales, int sumVocal, boolean cumple) {
+        if(actual == null){
+            return;
+        }
+
+        palabraActual.add(actual.getValue());
+        if(esVocal(actual.getValue())){
+            sumVocal++;
+        }
+
+        ej5(actual.getLeft(), resultado, palabraActual, cantVocales, sumVocal, cumple);
+        ej5(actual.getRight(), resultado, palabraActual, cantVocales, sumVocal, cumple);
+        if(sumVocal == cantVocales){
+            cumple = true;
+        }
+
+        if(cumple && isSheet(actual)){
+            StringBuilder a = new StringBuilder();
+//            System.out.print(palabraActual);
+            for(T i : palabraActual){
+                a.append(i);
+            }
+            resultado.add(a);
+            cumple = false;
+        }
+
+        cumple = false;
+        palabraActual.remove(palabraActual.size()-1);
+    }
+
+    private boolean esVocal(T value) {
+        if( value.equals("A") || value.equals("E") || value.equals("I") || value.equals("O") || value.equals("U")){
+            return true;
+        }
+        return false;
     }
 
 }
