@@ -109,7 +109,7 @@ public class GrafoDirigido<T> implements Grafo<T>{
     public Iterator<Integer> obtenerAdyacentes(int verticeId) {
         ArrayList<Integer> adyacentes = new ArrayList<>();
 
-        Iterator<Arco<T>> arco = this.obtenerArcos(verticeId); arco.next();
+        Iterator<Arco<T>> arco = this.obtenerArcos(verticeId);
         while(arco.hasNext()){
             Arco<T> a = arco.next();
             adyacentes.add(a.getVerticeDestino());
@@ -138,5 +138,17 @@ public class GrafoDirigido<T> implements Grafo<T>{
             return this.vertices.get(verticeId).iterator();
         }
         return null;
+    }
+
+    public void imprimir() {
+        for (Iterator<Integer> iteratorV = this.obtenerVertices(); iteratorV.hasNext();) {
+            Integer vertice = (Integer) iteratorV.next();
+            System.out.print(vertice + ": ");
+            for (Iterator<Integer> iteratorA = this.obtenerAdyacentes(vertice); iteratorA.hasNext();) {
+                Integer ady = (Integer) iteratorA.next();
+                System.out.print(ady + " ");
+            }
+            System.out.println();
+        }
     }
 }

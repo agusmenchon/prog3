@@ -32,4 +32,12 @@ public class Arco<T> {
         return verticeOrigen == a2.verticeOrigen && verticeDestino == a2.verticeDestino && Objects.equals(etiqueta, a2.etiqueta);
     }
 
+    @Override
+    public String toString() {
+        return "Arco{" +
+                "verticeOrigen=" + verticeOrigen +
+                ", verticeDestino=" + verticeDestino +
+                ", etiqueta=" + etiqueta +
+                "}\n";
+    }
 }
