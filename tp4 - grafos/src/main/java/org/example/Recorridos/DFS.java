@@ -12,10 +12,12 @@ import java.util.List;
 public class DFS<T> {
     private Grafo<T> grafo;
     private HashMap<Integer, String> vertices;
+    private Boolean ciclico;
 
     public DFS(Grafo<T> grafo) {
         this.grafo = grafo;
         this.vertices = new HashMap<>();
+        this.ciclico = false;
     }
 
     private void cargarVertices() {
@@ -25,9 +27,9 @@ public class DFS<T> {
         }
     }
 
-    public ArrayList<Arco<T>> dfs(){
+    public ArrayList<T> dfs(){
         this.cargarVertices();
-        ArrayList<Arco<T>> lista = new ArrayList<>();
+        ArrayList<T> lista = new ArrayList<>();
 
         for (Integer i : vertices.keySet()) {
             if (this.vertices.get(i).equals("white")) {
@@ -37,16 +39,23 @@ public class DFS<T> {
         return lista;
     }
 
-    private void dfs_visit(Integer vertice, ArrayList<Arco<T>> lista){
+    public Boolean isCiclik(){
+        return this.ciclico;
+    }
+
+    private void dfs_visit(Integer vertice, ArrayList<T> lista){
         this.vertices.put(vertice, "yellow");
+        if(!lista.contains(vertice)){
+            lista.add((T) vertice);
+        }
         for(Iterator<Integer> adyacentes = this.grafo.obtenerAdyacentes(vertice); adyacentes.hasNext();){
             Integer ady = adyacentes.next();
             if(this.vertices.get(ady).equals("white")){
+                lista.add((T) ady);
                 dfs_visit(ady, lista);
-                Arco<T> arco = this.grafo.obtenerArco(vertice,ady);
-                lista.add(arco);
+//                Arco<T> arco = this.grafo.obtenerArco(vertice,ady);
             } else if (this.vertices.get(ady).equals("yellow")){
-                System.out.println("existe un ciclo");
+                this.ciclico = true;
             }
         }
         this.vertices.put(vertice, "black");

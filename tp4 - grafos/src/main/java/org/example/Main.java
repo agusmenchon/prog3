@@ -1,15 +1,12 @@
 package org.example;
 
 import org.example.CSV.CSVReader;
-import org.example.Grafo.Arco;
-import org.example.Grafo.Grafo;
 import org.example.Grafo.GrafoDirigido;
 import org.example.Recorridos.BFS;
 import org.example.Recorridos.DFS;
+import org.example.Recorridos.CaminoSimpleMayorLongitud;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,31 +24,52 @@ public class Main {
         grafito.agregarArco(2, 3, null);
 
         // Obtengo el arco entre 1 y 2, y le pido la etiqueta
-        Integer etiqueta = grafito.obtenerArco(1, 2).getEtiqueta();
-        System.out.println("etiqueta: " + etiqueta); // Debería imprimir 4
+//        Integer etiqueta = grafito.obtenerArco(1, 2).getEtiqueta();
+//        System.out.println("etiqueta: " + etiqueta); // Debería imprimir 4
 
 //        Iterator<Arco<Integer>> t = grafito.obtenerArcos(1);
 //        while(t.hasNext()){
 //            System.out.print(t.next());
 //        }
 
-        System.out.println("---------- DFS ----------");
-        String path2 = "tp4 - grafos/src/main/java/org/example/CSV/dataset2.txt";
+        String path2 = "tp4 - grafos/src/main/java/org/example/CSV/dataset1.txt";
         GrafoDirigido<Integer> g2 = new GrafoDirigido<>();
         CSVReader reader = new CSVReader(path2, g2);
         reader.read();
+        g2.imprimir();
 
+        System.out.println("---------- DFS ----------");
         DFS<Integer> dfs = new DFS<>(g2);
-        ArrayList<Arco<Integer>> lista = dfs.dfs();
-        for(Arco<Integer> l : lista){
-            System.out.print(l);
+        ArrayList<Integer> lista = dfs.dfs();
+        imprimirRecorrido(lista);
+
+        System.out.println("---------- EJ3----------");
+        if(dfs.isCiclik()){
+            System.out.print("Existe ciclo en el grafo\n");
+        } else {
+            System.out.print("No existe ciclo en el grafo\n");
         }
 
-        System.out.println("---------- BFS ----------");
+        System.out.println("\n---------- BFS ----------");
         BFS<Integer> bfs = new BFS<>(g2);
-//        ArrayList<Arco<Integer>> lista2 = dfs.dfs();
-//        for(Arco<Integer> l : lista2){
-//            System.out.print(l);
-//        }
+        ArrayList<Integer> lista2 = bfs.BFS();
+        imprimirRecorrido(lista2);
+
+        System.out.println("\n---------- EJ4 ----------");
+        CaminoSimpleMayorLongitud<Integer> r = new CaminoSimpleMayorLongitud<>(g2, 1, 7);
+        ArrayList<Integer> lista3 = r.recorridoMayorLongitud();
+        imprimirRecorrido(lista3);
+        System.out.println("la suma del camino simple de mayor longitud es: " + r.caminoMayorLongitud());
+
+    }
+
+    public static void imprimirRecorrido(ArrayList<Integer> lista){
+        for(Integer l : lista){
+            if(!lista.getLast().equals(l)){
+                System.out.print(l + "-");
+            } else {
+                System.out.print(l+"\n");
+            }
+        }
     }
 }

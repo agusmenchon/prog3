@@ -64,7 +64,6 @@ public class GrafoDirigido<T> implements Grafo<T>{
         }
     }
 
-
     @Override
     public boolean contieneVertice(int verticeId) {
         return this.vertices.containsKey(verticeId);

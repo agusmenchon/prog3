@@ -7,8 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tp2 - recursion" />
-        <module name="tp1 - Listas" />
         <module name="tp2.1 - Arboles" />
+        <module name="tp1 - Listas" />
         <module name="tp4 - grafos" />
       </profile>
     </annotationProcessing>

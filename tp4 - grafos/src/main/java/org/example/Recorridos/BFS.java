@@ -2,10 +2,7 @@ package org.example.Recorridos;
 
 import org.example.Grafo.Grafo;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /** BreadthFirstSearch */
 public class BFS<T> {
@@ -27,18 +24,20 @@ public class BFS<T> {
         }
     }
 
-    public void BFS(){
+    public ArrayList<T> BFS(){
+        ArrayList<T> lista = new ArrayList<>();
         fila.clear();
-        for(Iterator<Integer> it = this.vertices.keySet().iterator(); it.hasNext();){
-            Integer i = it.next();
-            if(this.vertices.get(i).equals(false)){
-                BFS_visit(i);
+        for (Integer i : this.vertices.keySet()) {
+            if (this.vertices.get(i).equals(false)) {
+                BFS_visit(i, lista);
             }
         }
+        return lista;
     }
 
-    private void BFS_visit(Integer vertice){
+    private void BFS_visit(Integer vertice, ArrayList<T> lista){
         this.vertices.put(vertice, true); //marcado como visitado
+        lista.add((T) vertice);
         fila.add(vertice); //agregar vertice a la fila
         while(!fila.isEmpty()){
             Integer v = fila.remove(); //me traigo el 1ro de la fila
@@ -47,6 +46,7 @@ public class BFS<T> {
                 Integer ady = adyacentes.next(); // por c/ adyacente
                 if(this.vertices.get(ady).equals(false)){ //
                     this.vertices.put(ady, true);
+                    lista.add((T) ady);
                     this.fila.add(ady);
                 }
             }
