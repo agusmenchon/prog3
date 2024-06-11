@@ -25,7 +25,7 @@ public class ej6<T> {
         this.cantMayorCaminos = Integer.MAX_VALUE;
     }
 
-    /* ------------- CON DFS --------------- */
+    /** ------------- CON DFS --------------- */
     public ArrayList<T> ej6_DFS(){
         ArrayList<T> lista = new ArrayList<>();
         ArrayList<T> listaAux = new ArrayList<>();
@@ -53,7 +53,7 @@ public class ej6<T> {
         }
     }
 
-    /* ------------- CON BFS --------------- */
+    /** ------------- CON BFS --------------- */
     public ArrayList<T> ej6_BFS(){
         HashMap<Integer, Boolean> vertices = new HashMap<>();
         Iterator<Integer> it = grafo.obtenerVertices();
