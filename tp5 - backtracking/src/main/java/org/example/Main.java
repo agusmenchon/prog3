@@ -10,6 +10,7 @@ import org.example.ej5_procesadores.Tarea;
 import org.example.ej5_procesadores.backtracking_procesadores;
 import org.example.ej6_caballoDeAtila.Casilla;
 import org.example.ej6_caballoDeAtila.backtracking_caballo;
+import org.example.ej7_tableroMagico.backtracking_tableroMagico;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
@@ -33,6 +34,10 @@ public class Main {
 
         System.out.println("--------- Ejercicio 6 -------------");
         ej6();
+
+        System.out.println("\n--------- Ejercicio 7 -------------");
+        ej7();
+
 
     }
 
@@ -346,5 +351,17 @@ public class Main {
         for(Casilla c : res){
             System.out.print("jardin["+c.getValorX()+"]["+c.getValorY()+"]"+" -> ");
         }
+    }
+
+    public static void ej7(){
+//    Tablero mágico. Dado un tablero de tamaño n x n, construir un algoritmo que ubique (si es posible)
+//    n*n números naturales diferentes, entre 1 y un cierto k (con k>n*n), de manera tal que la suma de las
+//    columnas y de las filas sea igual a S.
+        int n = 5;
+
+        int [][] tablero = new int[n][n];
+
+        backtracking_tableroMagico back = new backtracking_tableroMagico(tablero);
+        back.backtracking();
     }
 }
