@@ -1,7 +1,5 @@
 package org.example.ej2_laberinto;
 
-import javax.swing.text.Position;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class backtracking_laberinto {
@@ -24,12 +22,6 @@ public class backtracking_laberinto {
     }
 
     public ArrayList<Posicion> backtracking_laberinto(){
-//        Solucion s = new Solucion(laberinto);
-//
-//        _backtracking_laberinto(s, inicio);
-//        return s;
-
-
         ArrayList<Posicion> solucionActual = new ArrayList<>();
 
         solucionActual.add(inicio);
@@ -61,7 +53,6 @@ public class backtracking_laberinto {
     public ArrayList<Posicion> getPosition(Posicion pos) {
         ArrayList<Posicion> res = new ArrayList<>();
         if (pos.isArriba()) {
-//            if(pos.getValorY() != 0)
              res.add(laberinto[pos.getValorX()][pos.getValorY() -1]);
         }if (pos.isIzquierda()) {
             res.add(laberinto[pos.getValorX() - 1][pos.getValorY()]);
